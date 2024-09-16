@@ -39,7 +39,7 @@ public class MainApp extends Application {
     	//declaracion de variables
         personajeJugador=new PersonajeJugador();
         enemigo=new Enemigo();
-        Label lblPersonajeJugador=new Label("PersonajeJugador:	");
+        Label lblPersonajeJugador=new Label("Personaje Jugador:	");
         Label lblEnemigo=new Label("Enemigo:			");
         Button btnTirarDado=new Button("Tirar dado");
         //declaracion de contenedores
@@ -75,7 +75,7 @@ public class MainApp extends Application {
         vbox.getChildren().addAll(hPersonajeJugador,hEnemigo,btnTirarDado);
         //aniadir a la escena y visualizar
         Scene scene=new Scene(vbox,250,100);
-        stage.setTitle("PersonajeJugador vs Enemigo");
+        stage.setTitle("Personaje Jugador vs Enemigo");
         stage.setScene(scene);
         stage.show();
     }
