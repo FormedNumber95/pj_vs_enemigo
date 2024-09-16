@@ -23,28 +23,28 @@ public class MainApp extends Application {
     /** El stage. */
     private static Stage stage;
     
-    /** El pj. */
-    private PJ pj;
+    /** El PersonajeJugador. */
+    private PersonajeJugador personajeJugador;
     
     /** El enemigo. */
     private Enemigo enemigo;
     
     /**
-     * Codigo.
+     * Ejecuta el juego.
      *
      * @param stage el stage
      */
     @Override
     public void start(@SuppressWarnings("exports") Stage stage) {
     	//declaracion de variables
-        pj=new PJ();
+        personajeJugador=new PersonajeJugador();
         enemigo=new Enemigo();
-        Label lblPj=new Label("PJ:		");
-        Label lblEnemigo=new Label("Enemigo:	");
+        Label lblPersonajeJugador=new Label("PersonajeJugador:	");
+        Label lblEnemigo=new Label("Enemigo:			");
         Button btnTirarDado=new Button("Tirar dado");
         //declaracion de contenedores
         VBox vbox=new VBox();
-        HBox hPj=new HBox();
+        HBox hPersonajeJugador=new HBox();
         HBox hEnemigo=new HBox();
         //Eventos
         btnTirarDado.setOnAction(new EventHandler<ActionEvent>() {
@@ -52,29 +52,30 @@ public class MainApp extends Application {
 			@Override
 			public void handle(ActionEvent event) {
 				int tirEnemigo;
-				int tirPj;
+				int tirPersonajeJugador;
 				do {
 					tirEnemigo=enemigo.TirarDado();
-					tirPj=pj.TirarDado();
-				}while(tirEnemigo==tirPj);
-				if(tirEnemigo>tirPj) {
-					pj.reducirVida();
+					tirPersonajeJugador=personajeJugador.TirarDado();
+				}while(tirEnemigo==tirPersonajeJugador);
+				if(tirEnemigo>tirPersonajeJugador) {
+					personajeJugador.reducirVida();
 				}
 				else {
 					enemigo.reducirVida();
 				}
 				if(Integer.parseInt(enemigo.getPg().getText())==0||
-						Integer.parseInt(pj.getPg().getText())==0) {
+						Integer.parseInt(personajeJugador.getPg().getText())==0) {
 					btnTirarDado.setDisable(true);
 				}
 			}
 		});
         //aniadir a los contenedores
-        hPj.getChildren().addAll(lblPj,pj.getPg());
+        hPersonajeJugador.getChildren().addAll(lblPersonajeJugador,personajeJugador.getPg());
         hEnemigo.getChildren().addAll(lblEnemigo,enemigo.getPg());
-        vbox.getChildren().addAll(hPj,hEnemigo,btnTirarDado);
+        vbox.getChildren().addAll(hPersonajeJugador,hEnemigo,btnTirarDado);
         //aniadir a la escena y visualizar
-        Scene scene=new Scene(vbox);
+        Scene scene=new Scene(vbox,250,100);
+        stage.setTitle("PersonajeJugador vs Enemigo");
         stage.setScene(scene);
         stage.show();
     }
