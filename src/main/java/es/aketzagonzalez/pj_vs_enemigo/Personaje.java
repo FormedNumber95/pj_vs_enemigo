@@ -7,8 +7,8 @@ import javafx.scene.text.Text;
  */
 public class Personaje {
 	
-	/** El texto de los pg. */
-	private Text pg=new Text("10");
+	/** El texto de los vida. */
+	private Text vida=new Text("10");
 	
 	/**
 	 * Tira 1d10.
@@ -20,19 +20,19 @@ public class Personaje {
 	}
 	
 	/**
-	 * Reduce en 1 los pg del personaje
+	 * Reduce en 1 los vida del personaje
 	 */
 	void reducirVida() {
-		this.pg.setText(""+(Integer.parseInt(pg.getText())-1));
+		this.vida.setText(""+(Integer.parseInt(vida.getText())-1));
 	}
 	
 	/**
-	 * getter de pg 
+	 * getter de vida 
 	 *
-	 * @return el Text de los pg del personaje
+	 * @return el Text de los vida del personaje
 	 */
-	public Text getPg() {
-		return pg;
+	public Text getVida() {
+		return vida;
 	}
 	
 }

@@ -23,14 +23,15 @@ public class MainApp extends Application {
     /** El stage. */
     private static Stage stage;
     
-    /** El PersonajeJugador. */
+    /** El Personaje Jugador. */
     private PersonajeJugador personajeJugador;
     
     /** El enemigo. */
     private Enemigo enemigo;
     
     /**
-     * Ejecuta el juego.
+     * Ejecuta el juego. Crea es stage y los personajes y hace la ventana.
+     * La ventana tiene un boton el cual hace que se tiren los dados.
      *
      * @param stage el stage
      */
@@ -63,15 +64,16 @@ public class MainApp extends Application {
 				else {
 					enemigo.reducirVida();
 				}
-				if(Integer.parseInt(enemigo.getPg().getText())==0||
-						Integer.parseInt(personajeJugador.getPg().getText())==0) {
-					btnTirarDado.setDisable(true);
+				if(Integer.parseInt(enemigo.getVida().getText())==0||
+						Integer.parseInt(personajeJugador.getVida().getText())
+						==0){btnTirarDado.setDisable(true);
 				}
 			}
 		});
         //aniadir a los contenedores
-        hPersonajeJugador.getChildren().addAll(lblPersonajeJugador,personajeJugador.getPg());
-        hEnemigo.getChildren().addAll(lblEnemigo,enemigo.getPg());
+        hPersonajeJugador.getChildren().addAll(lblPersonajeJugador,
+        		personajeJugador.getVida());
+        hEnemigo.getChildren().addAll(lblEnemigo,enemigo.getVida());
         vbox.getChildren().addAll(hPersonajeJugador,hEnemigo,btnTirarDado);
         //aniadir a la escena y visualizar
         Scene scene=new Scene(vbox,250,100);
