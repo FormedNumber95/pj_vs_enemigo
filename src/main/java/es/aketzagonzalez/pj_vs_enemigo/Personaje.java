@@ -7,8 +7,8 @@ import javafx.scene.text.Text;
  */
 public class Personaje {
 	
-	/** El texto de los vida. */
-	private Text vida=new Text("10");
+	/** Los puntos de vida */
+	private int vida=10;
 	
 	/**
 	 * Tira 1d10.
@@ -20,10 +20,10 @@ public class Personaje {
 	}
 	
 	/**
-	 * Reduce en 1 los vida del personaje
+	 * Reduce en 1 la vida del personaje
 	 */
 	void reducirVida() {
-		this.vida.setText(""+(Integer.parseInt(vida.getText())-1));
+		this.vida--;
 	}
 	
 	/**
@@ -31,8 +31,8 @@ public class Personaje {
 	 *
 	 * @return el Text de los vida del personaje
 	 */
-	public Text getVida() {
-		return vida;
+	public int getVida() {
+		return this.vida;
 	}
 	
 }

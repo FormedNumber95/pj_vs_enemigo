@@ -15,13 +15,15 @@ import javafx.stage.Stage;
 
 import java.io.IOException;
 
+// TODO: Auto-generated Javadoc
 /**
  * Clase MainApp.
  */
 public class MainApp extends Application {
     
     /** El stage. */
-    private static Stage stage;
+    @SuppressWarnings("unused")
+	private static Stage stage;
     
     /** El Personaje Jugador. */
     private PersonajeJugador personajeJugador;
@@ -42,38 +44,19 @@ public class MainApp extends Application {
         enemigo=new Enemigo();
         Label lblPersonajeJugador=new Label("Personaje Jugador:	");
         Label lblEnemigo=new Label("Enemigo:			");
+        Text textoVidaPersonajeJugador=new Text(personajeJugador.getVida()+"");
+        Text textoVidaEnemigo=new Text(enemigo.getVida()+"");
         Button btnTirarDado=new Button("Tirar dado");
         //declaracion de contenedores
         VBox vbox=new VBox();
         HBox hPersonajeJugador=new HBox();
         HBox hEnemigo=new HBox();
         //Eventos
-        btnTirarDado.setOnAction(new EventHandler<ActionEvent>() {
-			
-			@Override
-			public void handle(ActionEvent event) {
-				int tirEnemigo;
-				int tirPersonajeJugador;
-				do {
-					tirEnemigo=enemigo.TirarDado();
-					tirPersonajeJugador=personajeJugador.TirarDado();
-				}while(tirEnemigo==tirPersonajeJugador);
-				if(tirEnemigo>tirPersonajeJugador) {
-					personajeJugador.reducirVida();
-				}
-				else {
-					enemigo.reducirVida();
-				}
-				if(Integer.parseInt(enemigo.getVida().getText())==0||
-						Integer.parseInt(personajeJugador.getVida().getText())
-						==0){btnTirarDado.setDisable(true);
-				}
-			}
-		});
+        btnTirarDado.setOnAction(e -> EventoTirarDado(textoVidaPersonajeJugador,textoVidaEnemigo,btnTirarDado));
         //aniadir a los contenedores
         hPersonajeJugador.getChildren().addAll(lblPersonajeJugador,
-        		personajeJugador.getVida());
-        hEnemigo.getChildren().addAll(lblEnemigo,enemigo.getVida());
+        		textoVidaPersonajeJugador);
+        hEnemigo.getChildren().addAll(lblEnemigo,textoVidaEnemigo);
         vbox.getChildren().addAll(hPersonajeJugador,hEnemigo,btnTirarDado);
         //aniadir a la escena y visualizar
         Scene scene=new Scene(vbox,250,100);
@@ -81,6 +64,36 @@ public class MainApp extends Application {
         stage.setScene(scene);
         stage.show();
     }
+
+	/**
+	 * Evento que tira los dados y repite la tirada mientras salga el mismo 
+	 * resultado en ambos, luego compara cual es mas grande y el que tenga el 
+	 * menor numero en la tirada pierde un punto de vida
+	 *
+	 * @param textoVidaPersonajeJugador El texto de la vida personaje jugador
+	 * @param textoVidaEnemigo El texto de lavida enemigo
+	 * @param btnTirarDado El boton que tira el dado
+	 */
+	private void EventoTirarDado(Text textoVidaPersonajeJugador, Text textoVidaEnemigo, Button btnTirarDado) {
+		int tiradaEnemigo;
+		int tiradaPersonajeJugador;
+		do {
+			tiradaEnemigo=enemigo.TirarDado();
+			tiradaPersonajeJugador=personajeJugador.TirarDado();
+		}while(tiradaEnemigo==tiradaPersonajeJugador);
+		if(tiradaEnemigo>tiradaPersonajeJugador) {
+			personajeJugador.reducirVida();
+			textoVidaPersonajeJugador.setText(
+					personajeJugador.getVida()+"");
+		}
+		else {
+			enemigo.reducirVida();
+			textoVidaEnemigo.setText(enemigo.getVida()+"");
+		}
+		if(enemigo.getVida()==0||personajeJugador.getVida()==0){
+			btnTirarDado.setDisable(true);
+		}
+	}
 
 	/**
 	 * Donde se ejecuta el codigo.
